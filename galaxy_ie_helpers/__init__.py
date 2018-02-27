@@ -139,10 +139,12 @@ def get(dataset_id, history_id=None):
         log.debug('Cached, not re-downloading')
 
     return file_path
+
 def get_history_user (history_id=None):
     """
        Get all visible dataset infos of user history.
        Return a list of dict of each dataset.
+       The last element is always None
     """ 
     history_id = history_id or os.environ['HISTORY_ID']
     gi = get_galaxy_connection(history_id=history_id, obj=False)
@@ -170,4 +172,4 @@ if __name__ == '__main__':
     elif args.action == 'put':
         put(args.argument, file_type=args.filetype, history_id=args.history_id)
     elif args.action == 'get_history_user':
-        get_history_user()
+        get_history_user(history_id=args.history_id)
